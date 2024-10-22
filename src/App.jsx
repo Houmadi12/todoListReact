@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <div className='container flex justify-center mt-10'>
-        <div class="flex justify-between w-3/4 border">
+        <div class="flex justify-between w-3/4">
           <div className='flex justify-center items-center border w-13 rounded-md '>
             <input type="text" class="block w-13 focus:outline-none focus:ring-0 focus:border-transparent border-0 py-1.5 pl-7 pr-20 text-gray-900" placeholder="Rechercher...."/>
             <svg class="fill-[#75797e] stroke-0 h-7 w-10" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 32 32">
