@@ -5,6 +5,7 @@ function App() {
 
   return (
     <>
+      <h1 className='text-center mt-10 text-5xl'>Todolist</h1>
       <div className='container flex justify-center mt-10'>
         <div class="flex justify-between w-3/4">
           <div className='flex justify-center items-center border w-13 rounded-md '>
