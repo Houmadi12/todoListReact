@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Modal from './Modal';
 import Tableau from './Tableau';
 import ButtonAjout from './ButtonAjout';
-import InputSearch from './inputSearch';
+import InputSearch from './InputSearch';
 
 function Container() {
     const [taches, setTaches] = useState([]);
