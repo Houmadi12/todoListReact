@@ -10,6 +10,7 @@ function Container() {
     const [newTache, setNewTache] = useState("");
     const [newdesc, setNewDesc] = useState("");
     const [isModalOpen, setModalOpen] = useState(false);
+    const [filter, setfilter] = useState('');
 
     // fonction  pour gerer les modal
     const ouvrirModal = () => setModalOpen(true);
@@ -32,6 +33,27 @@ function Container() {
         setNewDesc("");
     }
 
+    // Fonction filter
+    const searchTache = (e) => {
+        let valeur = e.target.value;
+        setfilter(valeur);
+
+        // Si le champ est vide, réinitialise le tableau de tâches
+        if (!valeur) {
+            const reccupTaches = JSON.parse(localStorage.getItem("taches"));
+            setTaches(reccupTaches);
+            return;
+        }
+
+        const filtered = taches.filter((tache) => {
+            return tache.titre.toLowerCase().includes(valeur.toLowerCase());
+        });
+
+        setTaches(filtered);
+    };
+
+    console.log(taches);
+
     // Reccuperer le localStorage
     useEffect(() => {
         const reccupTaches = JSON.parse(localStorage.getItem("taches"));
@@ -53,7 +75,7 @@ function Container() {
                 <div className=' container w-full'>
                     <div className="mt-2 mx-0 md:mx-10 lg:mx-44">
                         <div className='flex justify-between mt-10'>
-                            <InputSearch />
+                            <InputSearch SearchTache={searchTache} valeur={filter} />
                             <ButtonAjout onClick={ouvrirModal} name="Ajouter" />
                             {/* Modal */}
                             {isModalOpen && (
@@ -65,7 +87,7 @@ function Container() {
                         </div>
                         <div className='flex mt-10'>
                             {/* Tableau */}
-                            <Tableau taches={taches} onUpdate={updateTache}/>
+                            <Tableau taches={taches} onUpdate={updateTache} />
                             {/* Fin Tableau */}
                         </div>
                     </div>

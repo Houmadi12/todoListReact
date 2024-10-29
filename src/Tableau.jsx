@@ -1,10 +1,8 @@
-
-import { MdDelete } from "react-icons/md";
 import ButtonVoir from "./ButtonVoir";
 import ButtonModifier from "./ButtonModifier";
 import ButtonSupprimmer from "./ButtonSupprimer";
 
-function Tableau({taches,onUpdate}) {
+function Tableau({ taches, onUpdate }) {
     return (
         <table className="w-full">
             <thead className=" bg-[#5499c7]">
@@ -15,20 +13,23 @@ function Tableau({taches,onUpdate}) {
                 </tr>
             </thead>
             <tbody>
-                {  
-                    taches.map((tache, index) =>
-                        <>
-                            <tr className="border-b-2 " key={index}>
-                                <th className=" text-5  text-center py-2">{tache.titre}</th>
-                                <td className=" text-5  text-center py-2">{tache.description}</td>
-                                <td className="flex justify-center text-xl gap-3 text-center py-2">
-                                    <button className="text-blue-700 cursor-pointer"><ButtonVoir index={index} /></button>
-                                    <button className="text-green-600 cursor-pointer"><ButtonModifier index={index} onUpdate={onUpdate}/></button>
-                                    <button className="text-red-500 cursor-pointer"> <ButtonSupprimmer index={index} onUpdate={onUpdate} /> </button>
-                                </td>
-                            </tr>
-                           
-                        </>
+                {
+                    taches.map((tache, index) => {
+                        return (
+                            <>
+                                <tr className="border-b-2" key={index}>
+                                    <th className=" text-5  text-center py-2">{tache.titre}</th>
+                                    <td className=" text-5  text-center py-2">{tache.description}</td>
+                                    <td className="flex justify-center text-xl gap-3 text-center py-2">
+                                        <button className="text-blue-700 cursor-pointer"><ButtonVoir index={index} /></button>
+                                        <button className="text-green-600 cursor-pointer"><ButtonModifier index={index} onUpdate={onUpdate} /></button>
+                                        <button className="text-red-500 cursor-pointer"> <ButtonSupprimmer index={index} onUpdate={onUpdate} /> </button>
+                                    </td>
+                                </tr>
+                            </>
+                        )
+                    }
+
                     )}
             </tbody>
         </table>
