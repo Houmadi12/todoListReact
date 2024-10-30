@@ -3,6 +3,7 @@ import { BiSolidEdit } from "react-icons/bi";
 import { useEffect, useState } from "react";
 
 function ButtonModifier({ index, onUpdate }) {
+
     const [taches, setTaches] = useState([]);
     const [editTache, setEditTache] = useState("");
     const [editDesc, setEditDesc] = useState("");
@@ -21,6 +22,7 @@ function ButtonModifier({ index, onUpdate }) {
         }
     }
 
+
     const fermerModal = () => {
         setModalOpen(false);
         setMessageErr("");
@@ -29,7 +31,7 @@ function ButtonModifier({ index, onUpdate }) {
     // Fonction de modification
     const handleAddTache = (e) => {
         e.preventDefault(); // Empêcher le rechargement de la page
-        // console.log(editDesc);
+        
         // Créer une copie du tableau
         if(editDesc.trim() === "" || editTache.trim() === ""){
             setMessageErr("Veuillez remplir tous les champs !")

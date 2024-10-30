@@ -3,7 +3,12 @@ import { FaRegEye } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 
 function ButtonVoir({index}) {
-    const [taches, setTaches] = useState([]);
+    const getTasks = () => {
+        const tasksFromStorage = JSON.parse(localStorage.getItem("taches"));
+        return tasksFromStorage || [];
+    };
+
+    const [taches, setTaches] = useState(getTasks());
     const [isModalOpen, setModalOpen] = useState(false)
 
     // fonction  pour gerer les modal

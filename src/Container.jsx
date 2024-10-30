@@ -68,6 +68,12 @@ function Container() {
         setTaches(filtered);
     };
 
+    // Mise ajour des state a chaque modification
+    const updateTache = (updatedTaches) => {
+        localStorage.setItem('taches', JSON.stringify(updatedTaches));
+        setTaches(updatedTaches);
+    };
+
     // Reccuperer le localStorage
     useEffect(() => {
         const reccupTaches = JSON.parse(localStorage.getItem("taches"));
@@ -77,17 +83,12 @@ function Container() {
         }
     }, []);
 
-    const updateTache = (updatedTaches) => {
-        setTaches(updatedTaches);
-        localStorage.setItem('taches', JSON.stringify(updatedTaches));
-    };
-
     return (
         <div className='flex justify-center'>
             <div className='flex flex-col w-min sm:w-full items-center mt-10 justify-center'>
                 <h1 className=' text-3xl font-bold font-montserrat'>TodoListe</h1>
                 <div className=' container w-full'>
-                    <div className="mt-2 mx-0 md:mx-10 lg:mx-44">
+                    <div className="mt-2 mx-0 m[d:mx-10 lg:mx-44">
                         <div className='flex justify-between mt-10'>
                             <InputSearch SearchTache={searchTache} valeur={filter} />
                             <ButtonAjout onClick={ouvrirModal} name="Ajouter" />
@@ -103,12 +104,34 @@ function Container() {
                         </div>
                         <div className='flex mt-10'>
                             {/* Tableau */}
-                            <Tableau taches={taches} onUpdate={updateTache} />
+                            <Tableau taches={taches} firstIndex={firstIndex} searchTache={searchTache} reccordsPerPage={reccordsPerPage} onUpdate={updateTache} 
+
+                            />
                             {/* Fin Tableau */}
                         </div>
                         <div className='pt-10'>
                             <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                               
+                               <ul className='flex justify-center items-center  rounded-md py-2'>
+                                <li>
+                                    <a href='#' className='text-lg text-white bg-[#5499c7] me-3 p-2 rounded'
+                                       onClick={prePage}
+                                     >Prev</a>
+                                </li>
+                                 {
+                                    numbers.map((n,i) =>(
+                                        <li className={`p-2 text-xl ${currentPage === n ? 'active':''}`} key={i}>    
+                                            <a href='#' className='page-item font-bold'
+                                            onClick={() => changeCPage(n)}
+                                            >{n}</a>
+                                        </li>
+                                    ))
+                                 }
+                                 <li>
+                                    <a href='#' className='text-lg text-white bg-[#5499c7] ms-3 p-2 rounded'
+                                       onClick={nextPage}
+                                     >next</a>
+                                </li>
+                               </ul>
                             </nav>
                         </div>
                     </div>
@@ -116,6 +139,26 @@ function Container() {
             </div>
         </div>
     )
+
+    function prePage(){
+        if(currentPage !== 1){
+            setCurrentPage(currentPage - 1)
+        }
+    }
+    
+    function changeCPage(id){
+        setCurrentPage(id);
+    }
+    
+    function nextPage(){
+        if(currentPage !== npage){
+            setCurrentPage(currentPage + 1)
+        }
+      
+    }
+    
+    
 }
+
 
 export default Container
