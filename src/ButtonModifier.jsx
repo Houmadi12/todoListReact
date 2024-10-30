@@ -7,6 +7,7 @@ function ButtonModifier({ index, onUpdate }) {
     const [editTache, setEditTache] = useState("");
     const [editDesc, setEditDesc] = useState("");
     const [isModalOpen, setModalOpen] = useState(false)
+    const [messageErr, setMessageErr] = useState("")
 
     // fonction  pour gerer les modal
     const ouvrirModal = () => {
@@ -20,30 +21,37 @@ function ButtonModifier({ index, onUpdate }) {
         }
     }
 
-    const fermerModal = () => setModalOpen(false);
+    const fermerModal = () => {
+        setModalOpen(false);
+        setMessageErr("");
+    } 
 
     // Fonction de modification
     const handleAddTache = (e) => {
         e.preventDefault(); // Empêcher le rechargement de la page
-
+        // console.log(editDesc);
         // Créer une copie du tableau
-        const newTaches = taches.map((tache, indice) => {
-            if (index === indice) {
-                // Retourner un nouvel objet avec les valeurs modifiées
-                return {
-                    ...tache,
-                        titre: editTache,
-                        description: editDesc
+        if(editDesc.trim() === "" || editTache.trim() === ""){
+            setMessageErr("Veuillez remplir tous les champs !")
+        } else {
+            const newTaches = taches.map((tache, indice) => {
+                if (index === indice) {
+                    // Retourner un nouvel objet avec les valeurs modifiées
+                    return {
+                        ...tache,
+                            titre: editTache,
+                            description: editDesc
+        
+                    };
+                }
+                return tache;
+            });
     
-                };
-            }
-            return tache;
-        });
-
-        // Mettre à jour le state et le localStorage
-        setTaches(newTaches);
-        onUpdate(newTaches);
-        fermerModal(); // Fermer le modal après modification
+            // Mettre à jour le state et le localStorage
+            setTaches(newTaches);
+            onUpdate(newTaches);
+            fermerModal(); // Fermer le modal après modification
+        }
     }
 
 
@@ -85,14 +93,18 @@ function ButtonModifier({ index, onUpdate }) {
                                                 <label htmlFor="tache" className="block text-xs md:text-md lg:text-lg font-medium font-lexendDeca leading-6 text-[#000000]">Tache</label>
                                                 <div className="mt-2">
                                                     <input id="tache" type="text" value={editTache} onChange={(e) => setEditTache(e.target.value)}
-                                                        required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                        required className="block w-full rounded-md border-0 px-3  py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:text-sm  md:text-lg sm:leading-6" />
                                                 </div>
                                             </div>
                                             <div className="">
                                                 <label htmlFor="description" className="block text-xs md:text-md lg:text-lg font-medium font-lexendDeca leading-6 text-[#000000]">Description</label>
                                                 <div className="mt-2">
-                                                    <input id="description" type="text" value={editDesc} onChange={(e) => setEditDesc(e.target.value)} required className="block w-full rounded-md  py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                    <input id="description" type="text" value={editDesc} onChange={(e) => setEditDesc(e.target.value)} required 
+                                                    className="block w-full rounded-md px-3  py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600   sm:text-sm md:text-lg  sm:leading-6" />
                                                 </div>
+                                            </div>
+                                            <div className="text-red-500">
+                                                {messageErr}
                                             </div>
                                         </div>
                                         <div className="flex justify-center bg-blue-600 bg-opacity-10 w-full py-5 border-t-2 ">

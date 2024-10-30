@@ -36,7 +36,7 @@ function Container() {
         }
             
         if(newTacheItem.titre.trim() === "" && newTacheItem.description.trim() === ""){
-            alert("Cest pas bon");
+            // alert("Cest pas bon");
             setMessageErr("Veuillez remplir les champs !") }else{
             let updateTachesTab = [...taches];
             updateTachesTab.push(newTacheItem);
