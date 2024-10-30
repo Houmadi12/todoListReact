@@ -12,6 +12,9 @@ function Container() {
     const [isModalOpen, setModalOpen] = useState(false);
     const [filter, setfilter] = useState('');
 
+    // Test d'input d'entrer
+    const [messageErr, setMessageErr] = useState("")
+
     // déclaration des variable pour le pagination
     const [currentPage, setCurrentPage] = useState(1);
     const reccordsPerPage = 5;
@@ -31,15 +34,19 @@ function Container() {
             titre: newTache,
             description: newdesc
         }
-
-        let updateTachesTab = [...taches];
-        updateTachesTab.push(newTacheItem);
-
-        setTaches(updateTachesTab);
-        localStorage.setItem('taches', JSON.stringify(updateTachesTab));
-
-        setNewTache("");
-        setNewDesc("");
+            
+        if(newTacheItem.titre.trim() === "" && newTacheItem.description.trim() === ""){
+            alert("Cest pas bon");
+            setMessageErr("Veuillez remplir les champs !") }else{
+            let updateTachesTab = [...taches];
+            updateTachesTab.push(newTacheItem);
+    
+            setTaches(updateTachesTab);
+            localStorage.setItem('taches', JSON.stringify(updateTachesTab));
+    
+            setNewTache("");
+            setNewDesc("");
+        }
     }
 
     // Fonction filter
@@ -87,7 +94,9 @@ function Container() {
                             {/* Modal */}
                             {isModalOpen && (
                                 <Modal clickClose={fermerModal} newTache={newTache} setNewTache={setNewTache}
-                                    newdesc={newdesc} setNewDesc={setNewDesc} handleAddTache={handleAddTache} />
+                                    newdesc={newdesc} setNewDesc={setNewDesc} handleAddTache={handleAddTache} 
+                                    messaageErr={messageErr}
+                                    />
                             )}
 
                             {/* Fin Modal */}
