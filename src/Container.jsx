@@ -4,7 +4,6 @@ import Modal from './Modal';
 import Tableau from './Tableau';
 import ButtonAjout from './ButtonAjout';
 import InputSearch from './InputSearch';
-import { GrPrevious } from "react-icons/gr";
 
 function Container() {
     const [taches, setTaches] = useState([]);
@@ -61,8 +60,6 @@ function Container() {
 
         setTaches(filtered);
     };
-
-    console.log(taches);
 
     // Reccuperer le localStorage
     useEffect(() => {
