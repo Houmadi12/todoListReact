@@ -3,6 +3,7 @@ import ButtonModifier from "./ButtonModifier";
 import ButtonSupprimmer from "./ButtonSupprimer";
 
 function Tableau({ taches, onUpdate }) {
+  
     return (
         <table className="w-full">
             <thead className=" bg-[#5499c7]">
@@ -14,7 +15,7 @@ function Tableau({ taches, onUpdate }) {
             </thead>
             <tbody>
                 {
-                    taches.map((tache, index) => {
+                   [...taches].reverse().map((tache, index) => {
                         return (
                             <>
                                 <tr className="border-b-2" key={index}>
@@ -29,7 +30,7 @@ function Tableau({ taches, onUpdate }) {
                             </>
                         )
                     }
-
+                
                     )}
             </tbody>
         </table>

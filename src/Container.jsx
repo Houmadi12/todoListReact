@@ -99,9 +99,7 @@ function Container() {
                         </div>
                         <div className='pt-10'>
                             <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                                <ul className=''>
-                                    <li className='page'></li>
-                                </ul>
+                               
                             </nav>
                         </div>
                     </div>
