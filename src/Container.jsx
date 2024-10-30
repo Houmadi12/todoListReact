@@ -4,6 +4,7 @@ import Modal from './Modal';
 import Tableau from './Tableau';
 import ButtonAjout from './ButtonAjout';
 import InputSearch from './InputSearch';
+import { GrPrevious } from "react-icons/gr";
 
 function Container() {
     const [taches, setTaches] = useState([]);
@@ -11,6 +12,15 @@ function Container() {
     const [newdesc, setNewDesc] = useState("");
     const [isModalOpen, setModalOpen] = useState(false);
     const [filter, setfilter] = useState('');
+
+    // déclaration des variable pour le pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const reccordsPerPage = 5;
+    const lastIndex = currentPage * reccordsPerPage;
+    const firstIndex = lastIndex - reccordsPerPage;
+    const records = taches.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(taches.length / reccordsPerPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
 
     // fonction  pour gerer les modal
     const ouvrirModal = () => setModalOpen(true);
@@ -89,6 +99,13 @@ function Container() {
                             {/* Tableau */}
                             <Tableau taches={taches} onUpdate={updateTache} />
                             {/* Fin Tableau */}
+                        </div>
+                        <div className='pt-10'>
+                            <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                                <ul className=''>
+                                    <li className='page'></li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
